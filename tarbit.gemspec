@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'async-io'
   s.add_dependency 'commander'
   s.add_dependency 'gruff'
+  s.add_dependency 'os'
 
   # Development Dependencies
 

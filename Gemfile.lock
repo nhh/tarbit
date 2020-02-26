@@ -1,10 +1,11 @@
 PATH
   remote: .
   specs:
-    tarbit (1.0.1)
+    tarbit (1.0.5)
       async-io
       commander
       gruff
+      os
 
 GEM
   remote: https://rubygems.org/
@@ -22,6 +23,7 @@ GEM
       rmagick (~> 2.13, >= 2.13.4)
     highline (2.0.3)
     nio4r (2.5.2)
+    os (1.0.1)
     rmagick (2.16.0)
     timers (4.3.0)
 

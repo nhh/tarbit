@@ -7,25 +7,49 @@ require 'fileutils'
 # :name is optional, otherwise uses the basename of this executable
 program :name, 'Tarbit - SSH Tarpit using Ruby'
 program :version, Tarbit::VERSION
-program :description, 'Stupid command that prints foo or bar.'
+program :description, 'Catch em all!'
+
+FileUtils.mkdir_p Tarbit::STATS_PATH
+FileUtils.mkdir_p Tarbit::SNAPSHOT_PATH
 
 command :serve do |c|
-  c.syntax = 'apollo serve [options]'
-  c.description = 'Runs the apollo server'
-  c.option '--debug', nil, 'Runs the apollo server in debug mode'
-  c.option '--suffix STRING', String, 'Adds a suffix to bar'
+  c.syntax = 'tarbit serve [options]'
+  c.description = 'Runs the tarbit honeypot'
+
+  c.option '--interval NUMBER', Integer, 'Defines an interval in seconds, falls back to 600'
+  c.option '--port NUMBER', Integer, 'Defines a port, falls back to 22'
+
   c.action do |args, options|
 
-    FileUtils.mkdir_p File.expand_path ('~/.tarbit/stats/')
-    puts "Starting tarbit ssh tarpit"
 
-    server = Tarbit::Server.new
-    statistic = Tarbit::Statistic.new(server, 600)
+    server = Tarbit::Server.new(options.port.to_i)
+    statistic = Tarbit::StatisticWatcher.new(server, options.interval.to_i)
 
     Async do |task|
+        Async.logger.info "============================================================"
+        Async.logger.info "Starting tarbit on port #{options.port || 22} creating time points every #{options.interval || 600} seconds"
+        Async.logger.info "============================================================"
         statistic.watch
         server.run
     end
 
   end
+
+end
+
+command :snapshot do |c|
+  c.syntax = 'apollo snapshot [options]'
+  c.description = 'Creates a statistic snapshot of the current gathered data'
+  c.option '--debug', nil, 'Runs the apollo server in debug mode'
+  c.option '--suffix STRING', String, 'Adds a suffix to bar'
+  c.action do |args, options|
+
+    statistic = Tarbit::StatisticSnapshot.new
+
+    Async do |task|
+        statistic.snapshot
+    end
+
+  end
+
 end

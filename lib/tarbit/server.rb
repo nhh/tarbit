@@ -11,12 +11,13 @@ module Tarbit
   class Server
     attr_reader :connections
 
-    def initialize
+    def initialize(port = 22)
       @connections = []
+      @port = port
     end
 
     def run
-      endpoint = Async::IO::Endpoint.parse("tcp://localhost:22")
+      endpoint = Async::IO::Endpoint.parse("tcp://0.0.0.0:#{@port}")
 
       Async do |task|
         while true
@@ -38,13 +39,13 @@ module Tarbit
           }
 
           while true do
-            task.sleep 1
-            if stream.eof?
+            task.sleep 60
+            if stream.eof? || stream.closed? || stream.io.closed?
               raise Async::TimeoutError.new
             end
             stream.write "#{rand(10)}\r\n"
           end
-        rescue Async::TimeoutError => e
+        rescue StandardError => e
           @connections = @connections.reject { |stats| stats.fetch(:id) == id }
           Async.logger.info "Connection closed: #{stream}"
         end
