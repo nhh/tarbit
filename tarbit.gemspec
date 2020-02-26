@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.license = 'ISC'
 
   s.files = `git ls-files`.split("\n")
-  s.executables << 'apollo'
+  s.executables << 'tarbit'
   s.required_ruby_version = '~> 2.5'
   s.require_path = 'lib'
 

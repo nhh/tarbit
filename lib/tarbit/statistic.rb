@@ -22,11 +22,12 @@ module Tarbit
     private
 
     def write_line_chart
+      return if @server.connections.size == 0 and @history.size == 0
 
       # Add point in time
       @history << {
           created_at: Date.new.strftime("%B %d, %Y"),
-          connections: @server.connections.clone
+          connections: @server.connections.clone # Cloning instead of referencing
       }
 
       g = Gruff::Line.new
@@ -38,7 +39,7 @@ module Tarbit
 
       g.data :Bots, @history.map {|point_in_time| point_in_time.fetch(:connections).size }
 
-      g.write('data/exciting.png')
+      g.write(File.expand_path ('~/.tarbit/stats/line_chart.png'))
     end
 
   end

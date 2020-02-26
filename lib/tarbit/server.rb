@@ -30,17 +30,22 @@ module Tarbit
           stream = Async::IO::Stream.new(peer)
           Async.logger.info "New connection: #{stream}"
 
+          id = SecureRandom.uuid
+
           @connections << {
               created_at: Date.new,
-              id: SecureRandom.uuid
+              id: id
           }
 
           while true do
             task.sleep 1
+            if stream.eof?
+              raise Async::TimeoutError.new
+            end
             stream.write "#{rand(10)}\r\n"
           end
         rescue Async::TimeoutError => e
-          @connections.delete stream
+          @connections = @connections.reject { |stats| stats.fetch(:id) == id }
           Async.logger.info "Connection closed: #{stream}"
         end
       end

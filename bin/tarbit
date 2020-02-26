@@ -2,6 +2,7 @@
 
 require 'commander/import'
 require 'tarbit'
+require 'fileutils'
 
 # :name is optional, otherwise uses the basename of this executable
 program :name, 'Tarbit - SSH Tarpit using Ruby'
@@ -14,10 +15,12 @@ command :serve do |c|
   c.option '--debug', nil, 'Runs the apollo server in debug mode'
   c.option '--suffix STRING', String, 'Adds a suffix to bar'
   c.action do |args, options|
+
+    FileUtils.mkdir_p File.expand_path ('~/.tarbit/stats/')
     puts "Starting tarbit ssh tarpit"
 
     server = Tarbit::Server.new
-    statistic = Tarbit::Statistic.new(server, 10)
+    statistic = Tarbit::Statistic.new(server, 600)
 
     Async do |task|
         statistic.watch
