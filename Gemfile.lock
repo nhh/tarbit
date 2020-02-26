@@ -1,0 +1,38 @@
+PATH
+  remote: .
+  specs:
+    tarbit (1.0.0)
+      async-io
+      commander
+      gruff
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    async (1.24.2)
+      console (~> 1.0)
+      nio4r (~> 2.3)
+      timers (~> 4.1)
+    async-io (1.27.3)
+      async (~> 1.14)
+    commander (4.5.0)
+      highline (~> 2.0.0)
+    console (1.8.1)
+    gruff (0.7.0)
+      rmagick (~> 2.13, >= 2.13.4)
+    highline (2.0.3)
+    nio4r (2.5.2)
+    rmagick (2.16.0)
+    timers (4.3.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  tarbit!
+
+RUBY VERSION
+   ruby 2.6.5p114
+
+BUNDLED WITH
+   1.17.3
