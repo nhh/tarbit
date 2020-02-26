@@ -13,7 +13,7 @@ module Tarbit
 
     def initialize(port = 22)
       @connections = []
-      @port = port
+      @port = port.to_i
     end
 
     def run

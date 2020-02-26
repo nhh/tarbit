@@ -7,7 +7,7 @@ module Tarbit
 
     def initialize(server, interval = 600)
       @server = server
-      @interval = interval
+      @interval = interval.to_i
       @history = []
     end
 

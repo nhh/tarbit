@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tarbit (1.0.5)
+    tarbit (1.0.6)
       async-io
       commander
       gruff
