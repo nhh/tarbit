@@ -16,7 +16,7 @@ module Tarbit
     end
 
     def run
-      endpoint = Async::IO::Endpoint.parse("tcp://localhost:1025")
+      endpoint = Async::IO::Endpoint.parse("tcp://localhost:22")
 
       Async do |task|
         while true
