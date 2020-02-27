@@ -57,3 +57,27 @@ Again make sure the path has changed `bin` with `wrapper`
 Enjoy statistics like these:
 
 ![A simple line graph showin connections over time](.assets/1582830001.png)
+
+
+## Troubleshooting
+
+Native extensions: Imagemagick can not find `MagickWand.h`
+
+On Ubuntu, you can run:
+```
+sudo apt-get install libmagickwand-dev
+```
+
+On Centos, you can run:
+```
+sudo yum install gcc ImageMagick-devel make which
+```
+
+On Macos, you can run: 
+
+```
+brew install imagemagick@6
+brew link --force imagemagick@6
+```
+
+On Windoes, you can install Linux instead.
