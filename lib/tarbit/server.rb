@@ -33,12 +33,12 @@ module Tarbit
           }
 
           while true do
-            task.sleep 60
+            task.sleep rand(20)
             if stream.eof? || stream.closed? || stream.io.closed? # Todo validate if flush is the problem here
               raise Async::TimeoutError.new
             end
             stream.write "#{rand(10)}\r\n"
-            #stream.flush
+            stream.flush
           end
         rescue StandardError => e
           @connections = @connections.reject { |stats| stats.fetch(:id) == id }
