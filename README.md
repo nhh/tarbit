@@ -1,12 +1,11 @@
-# Tarbit - A Ruby ssh tarpit feat. statistics
-=====
+# Tarbit - A async ruby tcp tarpit
 
 ## Introduction
 
 Tarbit is a tcp tarpit written in ruby. It can slow down automated ssh/http/tcp "attacks" or bot connections. 
 It is designed to consume a very little amount of cpu and memory. Tarbit can also generate statistic images.
 
-"Red Wood Cutting", Vladimir Kush
+*"Red Wood Cutting", Vladimir Kush*
 
 !["Red Wood Cutting", Vladimir Kush](.assets/red-wood-cutting_vladimir-kush.jpg)
 
@@ -16,7 +15,9 @@ It is designed to consume a very little amount of cpu and memory. Tarbit can als
 gem install tarbit
 ```
 
-You can now run manually (you can also omit the default params):
+You can now run tarbit manually (you can also omit the default params):
+
+The interval is the interval, the statistics are written to disk.
 
 ```
 tarbit serve --port 22 --interval 600
@@ -26,7 +27,7 @@ tarbit serve --port 22 --interval 600
 
 Create a systemd service
 
-Verify your tarbit executable: (change `bin` with `wrapper`)
+Verify your tarbit executable: (change the path `bin` to `wrapper` within the systemd `ExecStart` )
 
 ```
 which tarbit
@@ -55,3 +56,4 @@ Again make sure the path has changed `bin` with `wrapper`
 
 Enjoy statistics like these:
 
+![A simple line graph showin connections over time](.assets/1582830001.png)
