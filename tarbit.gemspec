@@ -12,8 +12,8 @@ Gem::Specification.new do |s|
 
   s.authors = ['Niklas Hanft']
   s.email = 'hello@niklashanft.com'
-  s.homepage = 'https://github.com/nhh/apollo'
-  s.license = 'ISC'
+  s.homepage = 'https://github.com/nhh/tarbit'
+  s.license = 'MIT'
 
   s.files = `git ls-files`.split("\n")
   s.executables << 'tarbit'

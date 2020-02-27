@@ -9,6 +9,8 @@ It is designed to consume a very little amount of cpu and memory. Tarbit can als
 
 !["Red Wood Cutting", Vladimir Kush](.assets/red-wood-cutting_vladimir-kush.jpg)
 
+Tarpit is heaviliy inspired by endlessh, the python version, feel free to take a look: https://nullprogram.com/blog/2019/03/22/
+
 ## Installation
 
 ```
