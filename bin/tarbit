@@ -26,9 +26,6 @@ command :serve do |c|
     statistic = Tarbit::StatisticWatcher.new(server, options.interval)
 
     Async do |task|
-        Async.logger.info "============================================================"
-        Async.logger.info "Starting tarbit on port #{options.port || 22} creating time points every #{options.interval || 600} seconds"
-        Async.logger.info "============================================================"
         statistic.watch
         server.run
     end

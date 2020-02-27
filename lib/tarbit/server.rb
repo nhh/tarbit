@@ -11,20 +11,14 @@ module Tarbit
   class Server
     attr_reader :connections
 
-    def initialize(port = 22)
+    def initialize(port)
       @connections = []
-      @port = port.to_i
+      @port = port.nil? ? 22 : port.to_i
+      Async.logger.info "Server - Starting tarbit on port #{@port}"
     end
 
     def run
       endpoint = Async::IO::Endpoint.parse("tcp://0.0.0.0:#{@port}")
-
-      Async do |task|
-        while true
-          task.sleep 1
-          Async.logger.info "Connection count: #{@connections.size}"
-        end
-      end
 
       Async do |task|
         endpoint.accept do |peer|
@@ -40,10 +34,11 @@ module Tarbit
 
           while true do
             task.sleep 60
-            if stream.eof? || stream.closed? || stream.io.closed?
+            if stream.eof? || stream.closed? || stream.io.closed? # Todo validate if flush is the problem here
               raise Async::TimeoutError.new
             end
             stream.write "#{rand(10)}\r\n"
+            #stream.flush
           end
         rescue StandardError => e
           @connections = @connections.reject { |stats| stats.fetch(:id) == id }

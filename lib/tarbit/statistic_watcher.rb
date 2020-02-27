@@ -5,10 +5,11 @@ require 'json'
 module Tarbit
   class StatisticWatcher
 
-    def initialize(server, interval = 600)
+    def initialize(server, interval)
       @server = server
-      @interval = interval.to_i
+      @interval = interval.nil? ? 600 : interval.to_i
       @history = []
+      Async.logger.info "SatisticWatcher - Starting watcher with interval #{@interval}"
     end
 
     def watch
