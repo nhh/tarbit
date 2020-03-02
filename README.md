@@ -9,7 +9,7 @@ It is designed to consume a very little amount of cpu and memory. Tarbit can als
 
 !["Red Wood Cutting", Vladimir Kush](.assets/red-wood-cutting_vladimir-kush.jpg)
 
-Tarpit is heaviliy inspired by endlessh, the python version, feel free to take a look: https://nullprogram.com/blog/2019/03/22/
+Tarbit is heaviliy inspired by endlessh, the python version, feel free to take a look: https://nullprogram.com/blog/2019/03/22/
 
 ## Installation
 
@@ -19,10 +19,10 @@ gem install tarbit
 
 You can now run tarbit manually (you can also omit the default params):
 
-The interval is the interval, the statistics are written to disk.
+The interval option marks the seconds until the statistics are written to disk.
 
 ```
-tarbit serve --port 22 --interval 600
+tarbit serve --port 22 --interval 1800
 ```
 
 ## Advanced
@@ -53,7 +53,14 @@ Create a cron job for making statistic snapshots:
 Again make sure the path has changed `bin` with `wrapper`
 
 ```
-*/15 * * * * /usr/local/rvm/gems/ruby-2.6.5/wrappers/tarbit snapshot
+* */2 * * * /usr/local/rvm/gems/ruby-2.6.5/wrappers/tarbit snapshot
+```
+
+It is recommended to cleanup the statistics folder. You can use a cron job too.
+(It will remove all statistics every 12 hours)
+
+```
+* */12 * * * rm /etc/tarbit/statistics/*.json
 ```
 
 Enjoy statistics like these:

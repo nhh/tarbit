@@ -23,7 +23,7 @@ module Tarbit
       Async do |task|
         endpoint.accept do |peer|
           stream = Async::IO::Stream.new(peer)
-          Async.logger.info "New connection: #{stream}"
+          Async.logger.info "New connection: #{stream}, #{@connections.size + 1} connections active"
 
           id = SecureRandom.uuid
 
@@ -42,7 +42,7 @@ module Tarbit
           end
         rescue StandardError => e
           @connections = @connections.reject { |stats| stats.fetch(:id) == id }
-          Async.logger.info "Connection closed: #{stream}"
+          Async.logger.info "Connection closed: #{stream}, #{@connections.size} connections active"
         end
       end
     end

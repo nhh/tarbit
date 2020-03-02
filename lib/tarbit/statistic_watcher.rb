@@ -7,8 +7,7 @@ module Tarbit
 
     def initialize(server, interval)
       @server = server
-      @interval = interval.nil? ? 600 : interval.to_i
-      @history = []
+      @interval = interval.nil? ? 1800 : interval.to_i
       Async.logger.info "SatisticWatcher - Starting watcher with interval #{@interval}"
     end
 
@@ -26,7 +25,7 @@ module Tarbit
     def create_point_in_time
       # Add point in time
       statistic_point = {
-          created_at: Time.now.to_i,
+          created_at: Time.new.strftime("%H:%M"),
           connections: @server.connections.clone
       }
 
